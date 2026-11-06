@@ -50,6 +50,13 @@ A chatbot on the web can talk, search, and use the few tools its website gives i
 
 7. **Let Pi set up the rest.** For example, the ChatGPT desktop app with the same cheap model. See [GUIDE.md → step 7](GUIDE.md#7-let-pi-set-up-other-apps-chatgpt--codex).
 
+8. **Give it more hands.** Surround yourself with tools the agent can drive from the command line (CLI) or through MCP. Then almost anything you can do on your computer, it can do too. Ask Pi to install and log in to:
+   - **[GitHub](https://github.com)** (`gh`): save and share code, and publish free websites with GitHub Pages.
+   - **[Cloudflare](https://www.cloudflare.com)** (`wrangler`): domains, DNS, and free hosting on `*.workers.dev`.
+   - **[agent-browser](https://github.com/vercel-labs/agent-browser)** and **[agent-desktop](https://github.com/vercel-labs/agent-desktop)**: the agent drives your browser and desktop apps.
+
+   See [GUIDE.md → step 8](GUIDE.md#8-give-your-agent-more-hands-cli-tools).
+
 ## What's in here
 
 | File | What it is |

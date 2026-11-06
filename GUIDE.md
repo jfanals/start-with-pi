@@ -10,8 +10,9 @@ This is the long version of the [README](README.md). It takes about 15 minutes, 
 - [5. Test that it works](#5-test-that-it-works)
 - [6. Recommended: cheap, fast, private routing](#6-recommended-cheap-fast-private-routing)
 - [7. Let Pi set up other apps (ChatGPT / Codex)](#7-let-pi-set-up-other-apps-chatgpt--codex)
-- [8. Which model should I use?](#8-which-model-should-i-use)
-- [9. Other things worth trying](#9-other-things-worth-trying)
+- [8. Give your agent more hands: CLI tools](#8-give-your-agent-more-hands-cli-tools)
+- [9. Which model should I use?](#9-which-model-should-i-use)
+- [10. Other things worth trying](#10-other-things-worth-trying)
 - [Troubleshooting](#troubleshooting)
 
 ---
@@ -234,7 +235,85 @@ What Pi does under the hood is in [config/codex-config.toml](config/codex-config
 
 ---
 
-## 8. Which model should I use?
+## 8. Give your agent more hands: CLI tools
+
+This is the most important idea in the guide:
+
+> **Surround yourself with tools the agent can drive.** Anything with a command-line tool (CLI) or an MCP server, the agent can use for you. Add enough of them and almost anything you can do on your computer, the agent can do too.
+
+Two kinds of tools:
+
+- **CLI**: a terminal command such as `gh`, `wrangler` or `agent-browser`. Pi already has `bash`, so a newly installed CLI is immediately usable. Just ask.
+- **MCP** (Model Context Protocol): a standard way for apps to offer tools to agents. Pi supports it built in: `pi mcp add …`, then `/mcp` to manage it.
+
+You rarely need to learn these tools yourself. Install one, log in once, and then just describe what you want.
+
+### GitHub: share code, publish websites
+
+A free [GitHub](https://github.com) account is your agent's home on the internet:
+
+- **Save and share** what you and your agent build (like this guide). Every change is versioned, so you can always go back.
+- **Free websites** with [GitHub Pages](https://docs.github.com/en/pages): turn a folder of HTML into a site at `https://<you>.github.io/<project>`.
+- **Learn from others:** point Pi at any public repo and ask it to explain, install or adapt it.
+
+Setup: create an account at [github.com](https://github.com), then ask Pi:
+
+```text
+Install the GitHub CLI (gh) and log me in with `gh auth login` using the browser.
+```
+
+Then try:
+
+```text
+Make a one-page website about my hobby in a new folder, push it to a new public GitHub
+repo, and publish it with GitHub Pages. Give me the link.
+```
+
+### Cloudflare: domains, DNS and free hosting
+
+[Cloudflare](https://www.cloudflare.com) is excellent for everything around websites:
+
+- **Domains and DNS:** buy domains at cost with [Cloudflare Registrar](https://www.cloudflare.com/products/registrar/) and manage DNS in one place.
+- **Free hosting:** deploy sites to [Workers](https://developers.cloudflare.com/workers/static-assets/get-started/). Every account gets a free `*.workers.dev` subdomain. On the free plan, requests for static files (HTML, CSS, images) are free and unlimited. Code that runs on each request gets 100,000 requests a day.
+- **[Wrangler](https://developers.cloudflare.com/workers/wrangler/)**, Cloudflare's CLI, deploys with a single command. Cloudflare also runs an [MCP server](https://github.com/cloudflare/mcp) (`https://mcp.cloudflare.com/mcp`) covering its whole API.
+
+Setup: create a free account at [cloudflare.com](https://dash.cloudflare.com/sign-up), then ask Pi:
+
+```text
+Deploy the website in this folder to Cloudflare Workers as a static site using wrangler.
+Log me in with `npx wrangler login` first. Give me the workers.dev link.
+```
+
+Later: *"Connect my domain example.com to that site and set up the DNS."*
+
+### Beyond the terminal: browser and desktop control
+
+With these, the agent can leave the terminal and use your computer the way you do.
+
+- **[agent-browser](https://github.com/vercel-labs/agent-browser)** (Vercel Labs) lets the agent drive a real Chrome: open pages, read them, click, fill forms and take screenshots. It's useful for sites that have no CLI or API.
+  ```bash
+  npm install -g agent-browser && agent-browser install
+  ```
+- **[agent-desktop](https://github.com/vercel-labs/agent-desktop)** (Vercel Labs) gives the agent **computer use**: it can see and operate desktop apps (Finder, Settings, any app) on macOS, Windows and Linux. It reads the system's accessibility tree, the same information screen readers use, so it doesn't rely on screenshots.
+  ```bash
+  npm install -g agent-desktop
+  agent-desktop permissions --guide   # macOS: grants Accessibility access
+  ```
+
+Both come with a **skill** that teaches the agent how to use them. Easiest is to ask Pi:
+
+```text
+Install agent-browser and agent-desktop from vercel-labs on GitHub, including their skills,
+and walk me through any permissions I need to grant.
+```
+
+Then try: *"Open my calendar app and tell me what's on tomorrow"* or *"Go to the OpenRouter activity page and tell me how much I spent this week."*
+
+> ⚠️ Desktop and browser control is powerful. The agent can see whatever is on screen and click anything. Keep it to tasks you're watching, and don't leave it unattended with banking or email open.
+
+---
+
+## 9. Which model should I use?
 
 | Model | Feel | When |
 |---|---|---|
@@ -248,7 +327,7 @@ Further on, you can set up **coordinators** that send different tasks to differe
 
 ---
 
-## 9. Other things worth trying
+## 10. Other things worth trying
 
 **Other agents and harnesses** (Pi can install them for you; just ask):
 
