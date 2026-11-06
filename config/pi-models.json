@@ -1,0 +1,18 @@
+{
+  "providers": {
+    "openrouter": {
+      "modelOverrides": {
+        "z-ai/glm-5.3-flash": {
+          "compat": {
+            "openRouterRouting": {
+              "zdr": true,
+              "max_price": { "prompt": 0.15, "completion": 0.5 },
+              "preferred_max_latency": { "p50": 2 },
+              "sort": "throughput"
+            }
+          }
+        }
+      }
+    }
+  }
+}
